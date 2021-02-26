@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Locationx</title>
+
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css' rel='stylesheet' />
+
+    <script>
+  
+    window.addEventListener("DOMContentLoaded", function () {
+     
+      mapboxgl.accessToken = 'pk.eyJ1IjoicmFzaGlkMzY0IiwiYSI6ImNrbDJmZ21lcjFkcDczMG1zeGU0cTFoNm0ifQ.HpD6gpy7vt137HtBIzk1LQ';
+
+      navigator.geolocation.getCurrentPosition(
+      
+        function (pos) {
+        
+          let map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [pos.coords.longitude, pos.coords.latitude],
+            zoom: 13
+          });
+        
+          let marker = new mapboxgl.Marker()
+            .setLngLat([pos.coords.longitude, pos.coords.latitude])
+            .addTo(map);
+        },
+
+      
+        function (err) {
+          console.log(err);
+        },
+
+    
+        {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0
+        }
+      );
+    });
+    </script>
+  </head>
+  <body>
+ 
+    <div id="map" style="width:100%; height:400px;"></div>
+  </body>
+</html>
